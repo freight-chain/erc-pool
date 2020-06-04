@@ -3,11 +3,10 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+var WatchMissingNodeModulesPlugin =
+    require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
-
-
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -23,13 +22,15 @@ var env = getClientEnvironment(publicUrl);
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
 module.exports = {
-  // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
-  // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
-  devtool: 'cheap-module-source-map',
+  // You may want 'eval' instead if you prefer to see the compiled output in
+  // DevTools.
+  // See the discussion in
+  // https://github.com/facebookincubator/create-react-app/issues/343.
+  devtool : 'cheap-module-source-map',
   // These are the "entry points" to our application.
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
-  entry: [
+  entry : [
     // Include an alternative client for WebpackDevServer. A client's job is to
     // connect to WebpackDevServer by a socket and get notified about changes.
     // When you save a file, the client will either apply hot updates (in case
@@ -49,48 +50,49 @@ module.exports = {
     // initialization, it doesn't blow up the WebpackDevServer client, and
     // changing JS code would still trigger a refresh.
   ],
-  output: {
+  output : {
     // Next line is not used in dev but WebpackDevServer crashes without it:
-    path: paths.appBuild,
+    path : paths.appBuild,
     // Add /* filename */ comments to generated require()s in the output.
-    pathinfo: true,
+    pathinfo : true,
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
-    filename: 'static/js/bundle.js',
+    filename : 'static/js/bundle.js',
     // This is the URL that app is served from. We use "/" in development.
-    publicPath: publicPath
+    publicPath : publicPath
   },
-  resolve: {
-    // This allows you to set a fallback for where Webpack should look for modules.
-    // We read `NODE_PATH` environment variable in `paths.js` and pass paths here.
-    // We use `fallback` instead of `root` because we want `node_modules` to "win"
+  resolve : {
+    // This allows you to set a fallback for where Webpack should look for
+    // modules.
+    // We read `NODE_PATH` environment variable in `paths.js` and pass paths
+    // here.
+    // We use `fallback` instead of `root` because we want `node_modules` to
+    // "win"
     // if there any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
-    fallback: paths.nodePaths,
+    fallback : paths.nodePaths,
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
     // some tools, although we do not recommend using it, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
-    extensions: ['.js', '.json', '.jsx', ''],
-    alias: {
+    extensions : [ '.js', '.json', '.jsx', '' ],
+    alias : {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web'
+      'react-native' : 'react-native-web'
     }
   },
 
-  module: {
+  module : {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
-    preLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint',
-        include: paths.appSrc,
-      }
-    ],
-    loaders: [
+    preLoaders : [ {
+      test : /\.(js|jsx)$/,
+      loader : 'eslint',
+      include : paths.appSrc,
+    } ],
+    loaders : [
       // Default loader: load all assets that are not handled
       // by other loaders with the url loader.
       // Note: This list needs to be updated with every change of extensions
@@ -106,32 +108,24 @@ module.exports = {
       // smaller than specified limit in bytes as data URLs to avoid requests.
       // A missing `test` is equivalent to a match.
       {
-        exclude: [
-          /\.html$/,
-          /\.(js|jsx)$/,
-          /\.css$/,
-          /\.json$/,
-          /\.woff$/,
-          /\.woff2$/,
+        exclude : [
+          /\.html$/, /\.(js|jsx)$/, /\.css$/, /\.json$/, /\.woff$/, /\.woff2$/,
           /\.(ttf|svg|eot)$/
         ],
-        loader: 'url',
-        query: {
-          limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
+        loader : 'url',
+        query : {limit : 10000, name : 'static/media/[name].[hash:8].[ext]'}
       },
       // Process JS with Babel.
       {
-        test: /\.(js|jsx)$/,
-        include: paths.appSrc,
-        loader: 'babel',
-        query: {
+        test : /\.(js|jsx)$/,
+        include : paths.appSrc,
+        loader : 'babel',
+        query : {
 
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
           // directory for faster rebuilds.
-          cacheDirectory: true
+          cacheDirectory : true
         }
       },
       // "postcss" loader applies autoprefixer to our CSS.
@@ -139,45 +133,31 @@ module.exports = {
       // "style" loader turns CSS into JS modules that inject <style> tags.
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
-      {
-        test: /\.css$/,
-        loader: 'style!css?importLoaders=1!postcss'
-      },
+      {test : /\.css$/, loader : 'style!css?importLoaders=1!postcss'},
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
-      {
-        test: /\.json$/,
-        loader: 'json'
-      },
+      {test : /\.json$/, loader : 'json'},
       // "file" loader for svg
       {
-        test: /\.svg$/,
-        loader: 'file',
-        query: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
+        test : /\.svg$/,
+        loader : 'file',
+        query : {name : 'static/media/[name].[hash:8].[ext]'}
       },
       // "file" loader for fonts
       {
-        test: /\.woff$/,
-        loader: 'file',
-        query: {
-          name: 'fonts/[name].[hash].[ext]'
-        }
+        test : /\.woff$/,
+        loader : 'file',
+        query : {name : 'fonts/[name].[hash].[ext]'}
       },
       {
-        test: /\.woff2$/,
-        loader: 'file',
-        query: {
-          name: 'fonts/[name].[hash].[ext]'
-        }
+        test : /\.woff2$/,
+        loader : 'file',
+        query : {name : 'fonts/[name].[hash].[ext]'}
       },
       {
-        test: /\.(ttf|eot)$/,
-        loader: 'file',
-        query: {
-          name: 'fonts/[name].[hash].[ext]'
-        }
+        test : /\.(ttf|eot)$/,
+        loader : 'file',
+        query : {name : 'fonts/[name].[hash].[ext]'}
       },
       // Truffle solidity loader to watch for changes in Solitiy files and hot
       // reload contracts with webpack.
@@ -193,29 +173,25 @@ module.exports = {
   },
 
   // We use PostCSS for autoprefixing only.
-  postcss: function() {
+  postcss : function() {
     return [
       autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
+        browsers : [
+          '>1%', 'last 4 versions', 'Firefox ESR',
           'not ie < 9', // React doesn't support IE8 anyway
         ]
       }),
     ];
   },
-  plugins: [
+  plugins : [
     // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
-    new InterpolateHtmlPlugin({
-      PUBLIC_URL: publicUrl
-    }),
+    new InterpolateHtmlPlugin({PUBLIC_URL : publicUrl}),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml,
+      inject : true,
+      template : paths.appHtml,
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
@@ -234,9 +210,5 @@ module.exports = {
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  }
+  node : {fs : 'empty', net : 'empty', tls : 'empty'}
 };
