@@ -17,7 +17,7 @@ contract PaymentPool is Ownable, MerkleProof {
 	mapping (address => uint256) public withdrawals;
 
 	mapping (uint256 => bytes32) payeeRoots;
-	uint256 currentCycleStartBlock;	
+	uint256 currentCycleStartBlock;
 
 	event PaymentCycleEnded(uint256 paymentCycle,
 							uint256 startBlock,
@@ -165,7 +165,7 @@ contract PaymentPool is Ownable, MerkleProof {
       s[j] = reversed[i - 1 - j];
     }
     return string(s);
-  }	
+  }
 
 	function getCurrentPaymentCycle() public returns (uint256) {
 		return numPaymentCycles;

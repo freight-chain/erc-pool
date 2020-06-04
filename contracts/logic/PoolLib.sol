@@ -7,7 +7,7 @@ import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
 contract PoolLib {
 
   using SafeMath for uint256;
-	
+
   //TODO move to lib
   function splitIntoBytes32(bytes byteArray, uint256 numBytes32) internal pure returns (bytes32[] memory bytes32Array,
                                                                                         bytes memory remainder) {
@@ -76,5 +76,5 @@ contract PoolLib {
       s[j] = reversed[i - 1 - j];
     }
     return string(s);
-  }	
+  }
 }
